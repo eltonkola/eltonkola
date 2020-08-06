@@ -1,6 +1,6 @@
 ### Hi there 👋
 
-- 🔭 I’m currently looking a new position
+- 🔭 I’m currently looking for a new position
 - ⚡ Fun fact: i love what i do
 
 ### About me
