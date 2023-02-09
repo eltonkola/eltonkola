@@ -1,0 +1,548 @@
+/*
+website: www.eltonkola.com
+author: elton kola
+mail: eltonkola[tek]gmail[pik]com
+*/
+
+*{
+	margin:0px;
+	padding:0px;
+}
+body{
+	font-family:Tahoma, Arial, Helvetica, sans-serif;
+	background:#F0F0F0 url(../images/sfondi.png) no-repeat center 0px;
+	color:black;
+
+}
+
+li{ 
+	list-style-type:none;
+}
+a{
+	text-decoration:none;
+	color:#336699;
+}
+a img{
+	border:none;
+}
+a:active, a:focus{ 
+   outline:0;
+}
+.clear{
+	clear:both;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#mbajtes {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	overflow:hidden;
+	
+}
+
+
+
+	#mask {
+		width:500%;
+		height:100%;
+
+	}
+
+	.faqe {
+		width:20%;
+		height:100%;
+		float:left;
+	}
+	
+	
+	.kutia {
+		width:980px;
+		height:380px;
+		top:120px;
+		margin:0 auto;
+		position:relative;
+		background-image:url(../images/sf_pag.png);
+		
+		
+	filter:alpha(opacity=80);
+	-moz-opacity:0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+	}
+	
+	.selected {
+	}
+
+	.clear {
+		clear:both;
+	}
+	
+
+	
+#lart{
+	top:30px;
+	width:100%;
+	position:absolute;
+	text-align: center ;
+}	
+	
+#koka {
+	width:980px;
+	height:73px;
+	margin-left: auto ;
+	margin-right: auto ;
+	text-align: left ;
+	
+}
+
+#menu {
+
+	height:69px;
+	float:right;
+	
+}
+
+
+#gjuha1, #gjuha2, #gjuha3{
+position:relative;
+width:20px;
+height:14px;
+top:8px;
+left:-3px;
+
+	border-top: 1px solid #ccc;	
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+
+padding-left:3px;
+padding-top:3px;
+background:#F1F1F1;
+
+	filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+}
+
+
+#gjuha1{
+top:4px;
+}
+
+#gjuha2{
+top:6px;
+}
+
+#gjuha3{
+top:8px;
+}
+
+
+#gjuha {
+
+	height:69px;
+	float:left;
+	width:12px;
+}
+
+#logo {
+	width:380px;
+	height:73px;
+	float:left;
+	background-image:url(../images/logo.png);
+}
+
+.menu_majtas{
+	background-image:url(../images/sf_menu_majtas.png);
+	position:relative;
+	width:4px;
+	height:69px;
+	float:left;
+}
+.menu_djathtas{
+	background-image:url(../images/sf_menu_djathtas.png);
+	position:relative;
+	width:4px;
+	height:69px;
+	float:left;
+}
+
+
+
+.menu_buton , .menu_buton_poshte{
+	position:relative;
+	width:110px;
+	height:69px;
+	text-align:center;
+	float:left;
+	background-image:url(../images/sf_menu.png);
+	 text-transform: uppercase;
+}
+.menu_buton h1 , .menu_buton_poshte h1{
+	padding-top:18px;
+	color:black;
+	font-size:12px;
+}
+.menu_buton h2 , .menu_buton_poshte h2{
+	padding-top:4px;
+	color:#949494;
+	font-size:8px;
+}
+
+
+.menu_buton_lart{
+	position:relative;
+	width:110px;
+	height:69px;
+	text-align:center;
+	float:left;
+	background-image:url(../images/sf_menu_lart.png);
+	 text-transform: uppercase;
+}
+
+
+
+
+
+.menu_buton_lart h1{
+	padding-top:18px;
+	color:red;
+	font-size:12px;
+}
+.menu_buton_lart h2{
+	padding-top:4px;
+	color:black;
+	font-size:8px;
+}
+
+
+
+
+
+
+.menu_mes{
+	position:relative;
+	width:2px;
+	height:69px;
+	float:left;
+	background-image:url(../images/sf_menu_mes.png);
+	
+}
+
+
+
+
+
+
+
+#poshte{
+	top:510px;
+	width:100%;
+	height:60px;
+	position:absolute;
+	text-align: center ;
+}
+
+#bishti{
+	width:980px;
+	margin-left: auto ;
+	margin-right: auto ;
+	text-align: left ;
+	background-image:url(../images/sf_bishti.png);
+	background-repeat:repeat-x;
+	padding-top:8px;
+	font-family: sans-serif;
+	font-size:12px;
+}
+
+#bishti_logo{
+position:relative;
+float:left;
+width:46px;
+height:43px;
+left:0px:
+}
+
+#bishti_txt{
+position:relative;
+float:left;
+left:10px;
+width:400px;
+padding-top:4px;
+color:#999999;
+}
+#bishti_mda{
+position:relative;
+float:right;
+width:88px;
+height:43px;
+right:0px;
+}
+
+.logo_normal{
+background-image:url(../images/logo_bishti.png);
+}
+.logo_lart{
+background-image:url(../images/logo_bishti_lart.png);
+}
+
+.mda_normal{
+background-image:url(../images/mda_gri.png);
+}	
+.mda_lart{
+background-image:url(../images/mda_kuq.png);
+}		
+
+.bishti_txt_gri{
+color:#666666;
+}
+
+/*
+te pergjithshme
+*/
+h1{
+font-size:22px;
+color:green;
+}
+
+h2{
+font-size:14px;
+color:black;
+}
+
+
+
+.pading-faqe{
+padding:4px;
+}
+
+
+
+.majast_70{
+padding:8px;
+position:relative;
+float:left;
+width:600px;
+
+}
+
+
+
+.djathtas_30{
+padding:10px;
+position:relative;
+float:right;
+width:250px;
+text-align:center;
+}
+
+.djathtas_30 img {
+   padding:1px;
+   border:1px solid #696969;
+   background-color:#fff;
+}
+
+
+.trupi_lart{
+padding-top:10px;
+height:280px;
+}
+
+.trupi_poshte{
+height:40px;
+}
+
+
+			
+.shkariko_but, .shkariko_but:visited {
+	background: #222 url(../images/alert-overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+	
+	font-size: 13px; 
+	font-weight: bold; 
+	line-height: 1; 
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25); 
+	font-size: 14px; 
+	padding: 8px 14px 9px; 
+	background-color: #ff0000;
+}
+
+.shkariko_but:hover{ 
+	color: #fff; 
+	background-color: #000; 
+}
+
+a{ 
+color: #ff0000;
+}
+a:hover{ 
+color: #000; 
+}
+
+
+.majast_100{
+padding:8px;
+position:relative;
+float:left;
+width:96%;
+}
+.majast_100 img{
+float:right;
+margin:0 0 0 30px;
+
+padding:1px;
+   border:1px solid #696969;
+   background-color:#fff;
+}
+
+
+
+/*akordi*/
+
+ 
+		/* UNLESS YOU KNOW WHAT YOU'RE DOING, DO NOT CHANGE THE FOLLOWING RULES */
+		
+		.easy-accordion{display:block;position:relative;overflow:hidden;padding:0;margin:0}
+		.easy-accordion dt,.easy-accordion dd{margin:0;padding:0}
+		.easy-accordion dt,.easy-accordion dd{position:absolute}
+		.easy-accordion dt{margin-bottom:0;margin-left:0;z-index:5;/* Safari */ -webkit-transform: rotate(-90deg); /* Firefox */ -moz-transform: rotate(-90deg);-moz-transform-origin: 20px 0px;  /* Internet Explorer */ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);cursor:pointer;}
+		.easy-accordion dd{z-index:1;opacity:0;overflow:hidden}
+		.easy-accordion dd.active{opacity:1;}
+		.easy-accordion dd.no-more-active{z-index:2;opacity:1}
+		.easy-accordion dd.active{z-index:3}
+		.easy-accordion dd.plus{z-index:4}
+		.easy-accordion .slide-number{position:absolute;bottom:0;left:10px;font-weight:normal;font-size:1.1em;/* Safari */ -webkit-transform: rotate(90deg); /* Firefox */ -moz-transform: rotate(90deg);  /* Internet Explorer */ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);}
+		 
+			
+		
+		#programimi-akordion{width:980px;height:359px;padding:0px;}
+		#programimi-akordion dl{width:980px;height:359px}	
+		#programimi-akordion dt{height:46px;line-height:44px;text-align:right;padding:0 15px 0 0;font-size:1.1em;font-weight:bold;font-family: Tahoma, Geneva, sans-serif;text-transform:uppercase;letter-spacing:1px;background:#fff url(../images/slide-inaktiv.jpg) 0 0 no-repeat;color:#717171}
+		#programimi-akordion dt.active{cursor:pointer;color:#fff;background:#fff url(../images/slide-aktiv.jpg) 0 0 no-repeat}
+		#programimi-akordion dt.hover{color:#000;}
+		#programimi-akordion dt.active.hover{color:#fff}
+		#programimi-akordion dd{padding:25px;background:url(../images/slide.jpg) bottom left repeat-x;border:1px solid #dbe9ea;border-left:0;margin-right:3px}
+		#programimi-akordion .slide-number{color:#717171;left:10px;font-weight:bold}
+		#programimi-akordion .active .slide-number{color:#fff;}
+		#programimi-akordion a{color:#68889b}
+		#programimi-akordion dd img{
+			float:right;
+			margin:0 0 0 30px;
+			padding:1px;
+			border:1px solid #696969;
+			background-color:#fff;
+			}
+		
+		#programimi-akordion .more{padding-top:10px;display:block}
+		
+
+
+		
+
+	@font-face { font-family: acid; src: url('acid.txt'); } 
+
+.shkrim h1, #programimi-akordion h2{
+color:#595959;
+/*
+font-family: Georgia, 'Nimbus Roman No9 L', serif;
+*/
+font-family:acid, serif;
+
+
+
+font-size: 50px;
+font-weight: normal;
+letter-spacing: 1px;
+text-shadow: 1px 0px 0px #336699;
+}
+
+.shkrim p, #programimi-akordion  p{
+font-size:28px;
+color:#000000;
+padding-top:6px;
+font-style: normal;
+font-family:acid;
+text-align: justify;
+line-height: 24px;
+text-shadow: 1px 0px 0px #5a5992;
+}		
+
+
+/*formi i kontaktit*/
+.formi-kontakt{ 
+padding-top:20px;
+width:700px;
+}
+
+fieldset { 
+border: none; 
+}
+
+#kontakt-detaje{ 
+		float: left;
+		width: 240px; 
+}
+	
+#kontakt-mesazhi{ 
+		float: right;
+		width: 450px;
+}
+
+
+input, textarea { 		
+		padding: 2px; 
+		margin: 2px 0 20px 0; 
+		background: #fff; 
+		width: 220px; 
+		font-size: 14px; 
+		color: #555; 
+		border: 1px #ddd solid;
+		-webkit-transition: background 0.3s linear;							
+}
+	
+textarea {		
+		width: 450px; 
+		height: 150px; 		 		
+}
+	
+input:hover, textarea:hover { 
+		background: #eee; 
+}
+
+label {	
+		font-size: 16px;
+		color: #000; 
+		width: 200px;
+		display: inline-block;
+}
+	
+	
+#kontakt-gabim{	
+	color:red;
+	font-size:14px;
+}

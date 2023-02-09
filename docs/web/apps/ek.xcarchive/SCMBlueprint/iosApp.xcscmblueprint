@@ -1,0 +1,26 @@
+{
+  "DVTSourceControlWorkspaceBlueprintLocationsKey" : {
+    "F568D7F0131FBA876543BC5676DBA45DF4A5B807" : {
+      "DVTSourceControlBranchIdentifierKey" : "master",
+      "DVTSourceControlLocationRevisionKey" : "15c25e748dfd541a90b6052c1c97ec684595e607",
+      "DVTSourceControlBranchOptionsKey" : 4,
+      "DVTSourceControlBranchRemoteNameKey" : "origin",
+      "DVTSourceControlWorkspaceBlueprintLocationTypeKey" : "DVTSourceControlBranch"
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F568D7F0131FBA876543BC5676DBA45DF4A5B807",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C3C1DCCD-4808-410E-994B-27BEE64B5BB5",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "F568D7F0131FBA876543BC5676DBA45DF4A5B807" : "eltonkola\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "iosApp",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "eltonkola\/iosApp\/iosApp.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eltonkola\/eltonkola.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F568D7F0131FBA876543BC5676DBA45DF4A5B807"
+    }
+  ]
+}
