@@ -205,10 +205,10 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles          
 
-      - name: Build Dmg
+      - name: Build project
         run: |
           cd eltonkola
-          ./gradlew shared:build
+          ./gradlew shared:iosArm64Binaries
           
       - name: build archive
         run: |
