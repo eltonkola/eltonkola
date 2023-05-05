@@ -55,3 +55,55 @@ jobs:
           name: app.deb
           path: eltonkola/desktopApp/build/compose/binaries/main/deb/EltonKola-1.0.0.deb
 
+  build-web:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Build Deb
+        run: |
+          cd eltonkola
+          ./gradlew jsApp:jsBrowserDistribution
+          zip -r web.zip jsApp/build/distributions
+        
+      - name: Upload Web
+        uses: actions/upload-artifact@v1
+        with:
+          name: web.zip
+          path: eltonkola/web.zip
+
+  build-macos:
+    runs-on: macos-12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Build Deb
+        run: |
+          cd eltonkola
+          ./gradlew desktopApp:packageDmg
+                  
+      - name: Upload Dmg
+        uses: actions/upload-artifact@v1
+        with:
+          name: app.dmg
+          path: eltonkola/desktopApp/build/compose/binaries/main/dmg/EltonKola-1.0.0.dmg
+
