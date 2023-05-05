@@ -188,5 +188,16 @@ jobs:
           #cp -i ${{ runner.temp }}/build/ek.ipa docs/web/apps/ek.ipa
                   
 
-    
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: 'update website content'
+          branch: website_update
+          delete-branch: true
+          title: '[publish] Update website and app binary'
+          assignees: ${{ github.actor}}
+          body: |
+            Update website
+            - Updated app binaries
+
     
