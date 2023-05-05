@@ -59,5 +59,5 @@ deb path: ek.deb
 `./gradlew desktopApp:packageDeb`
 
 ### Windows
-deb path: ek.exe
-`./gradlew desktopApp:packageExe`
+deb path: ek.msi
+`./gradlew desktopApp:packageMsi`

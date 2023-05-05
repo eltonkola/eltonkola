@@ -22,7 +22,7 @@ compose.desktop {
         mainClass = "MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Exe, TargetFormat.Deb)
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "EltonKola"
             packageVersion = "1.0.0"
         }

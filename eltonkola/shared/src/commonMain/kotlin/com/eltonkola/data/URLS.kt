@@ -8,7 +8,7 @@ object URLS {
 
     const val DOWNLOAD_ANDROID = "https://eltonkola.com/web/apps/ek.apk"
     const val DOWNLOAD_LINUX = "https://eltonkola.com/web/apps/ek.deb"
-    const val DOWNLOAD_WINDOWS = "https://eltonkola.com/web/apps/ek.exe"
+    const val DOWNLOAD_WINDOWS = "https://eltonkola.com/web/apps/ek.msi"
     const val DOWNLOAD_MACOS = "https://eltonkola.com/web/apps/ek.dmg"
     const val DOWNLOAD_IPHONE = "https://eltonkola.com/web/apps/ek.xcarchive"
 
