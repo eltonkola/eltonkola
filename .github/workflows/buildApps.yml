@@ -220,7 +220,7 @@ jobs:
       - name: build archive
         run: |
           cd eltonkola/iosApp
-          #pod install
+          pod install
           xcodebuild -scheme "iosApp" \
           -archivePath $RUNNER_TEMP/eltonkola.xcarchive \
           -sdk iphoneos \
