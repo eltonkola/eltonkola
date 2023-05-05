@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app.msi
-          path: eltonkola/desktopApp/build/compose/binaries/main/dmg/EltonKola-1.0.0.msi
+          path: eltonkola\desktopApp\build\compose\binaries\main\msi\EltonKola-1.0.0.msi
 
   build-macos:
     runs-on: macos-latest
