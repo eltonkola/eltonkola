@@ -250,8 +250,9 @@ jobs:
         
       - name: Copy all files
         run: |
-          rm docs/web/*
-          rm docs/web/apps/*
+          rm -rf docs/web/
+          mkdir docs/web/
+          mkdir docs/web/apps/
               
       - uses: actions/download-artifact@v3
         with:
@@ -284,10 +285,10 @@ jobs:
           unzip -d docs/web/ docs/web.zip
           rm docs/web.zip
           
-      - uses: actions/download-artifact@v3
-        with:
-          name: app.ipa
-          path: docs/web/apps/ek.ipa
+      #- uses: actions/download-artifact@v3
+      #  with:
+      #    name: app.ipa
+      #    path: docs/web/apps/ek.ipa
   
           
       - name: Create Pull Request
