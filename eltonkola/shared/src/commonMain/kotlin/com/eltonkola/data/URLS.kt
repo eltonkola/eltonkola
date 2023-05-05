@@ -6,11 +6,11 @@ object URLS {
     const val PROFILE_GITHUB = "https://github.com/eltonkola"
     const val PROFILE_PLAYSTORE = "https://play.google.com/store/apps/dev?id=6135815754208595340"
 
-    const val DOWNLOAD_ANDROID = "https://eltonkola.com/web/apps/ek.apk"
-    const val DOWNLOAD_LINUX = "https://eltonkola.com/web/apps/ek.deb"
-    const val DOWNLOAD_WINDOWS = "https://eltonkola.com/web/apps/ek.msi"
-    const val DOWNLOAD_MACOS = "https://eltonkola.com/web/apps/ek.dmg"
-    const val DOWNLOAD_IPHONE = "https://eltonkola.com/web/apps/ek.xcarchive"
+    const val DOWNLOAD_ANDROID = "https://github.com/eltonkola/eltonkola/blob/master/downloads/androidApp-debug.apk?raw=true"
+    const val DOWNLOAD_LINUX = "https://github.com/eltonkola/eltonkola/blob/master/downloads/eltonkola_1.0.0-1_amd64.deb?raw=true"
+    const val DOWNLOAD_WINDOWS = "https://github.com/eltonkola/eltonkola/blob/master/downloads/EltonKola-1.0.0.msi?raw=true"
+    const val DOWNLOAD_MACOS = "https://github.com/eltonkola/eltonkola/blob/master/downloads/EltonKola-1.0.0.dmg?raw=true"
+    const val DOWNLOAD_IPHONE = "https://github.com/eltonkola/eltonkola/blob/master/downloads/EltonKola-1.0.0.ipa?raw=true"
 
     const val DOWNLOAD_RESUME = "https://eltonkola.com/web/apps/cv_eltonkola.pdf"
 
