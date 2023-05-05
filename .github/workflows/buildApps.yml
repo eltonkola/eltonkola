@@ -242,6 +242,12 @@ jobs:
     needs: [build-android, build-macos, build-windows, build-web, build-linux] #build-ios
     steps:
    
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+        
       - name: Copy all files
         run: |
           rm docs/web/*
