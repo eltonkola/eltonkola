@@ -244,9 +244,8 @@ jobs:
    
       - name: Copy all files
         run: |
-          rm -rf docs/web/
-          mkdir docs/web/
-          mkdir docs/web/apps/
+          rm docs/web/*
+          rm docs/web/apps/*
               
       - uses: actions/download-artifact@v3
         with:
