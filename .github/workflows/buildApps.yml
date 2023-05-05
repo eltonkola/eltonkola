@@ -282,7 +282,7 @@ jobs:
       
       - name: Copy web files
         run: |
-          unzip -d docs/web/ docs/web.zip
+          unzip docs/web.zip -d docs/web/
           rm docs/web.zip
           
       #- uses: actions/download-artifact@v3
