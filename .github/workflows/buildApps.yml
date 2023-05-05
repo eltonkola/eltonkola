@@ -53,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app.deb
-          path: eltonkola/desktopApp/build/compose/binaries/main/deb/EltonKola-1.0.0.deb
+          path: eltonkola/desktopApp/build/compose/binaries/main/deb/eltonkola_1.0.0-1_amd64.deb
 
   build-web:
     runs-on: ubuntu-latest
