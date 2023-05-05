@@ -231,7 +231,7 @@ jobs:
           retention-days: 3
           
   update-website:
-    runs-on: linux-latest
+    runs-on: ubuntu-latest
     needs: [build-android, build-macos, build-windows, build-web, build-linux] #build-ios
     steps:
    
