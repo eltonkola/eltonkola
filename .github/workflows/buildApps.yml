@@ -259,38 +259,39 @@ jobs:
         run: |
           rm -rf docs/web/
           mkdir docs/web/
-          mkdir docs/web/apps/
+          rm -rf downloads/
+          mkdir downloads/
               
       - uses: actions/download-artifact@v3
         with:
           name: app.apk
-          path: docs/web/apps/ek.apk
+          path: downloads/
           
       - uses: actions/download-artifact@v3
         with:
           name: app.deb
-          path: docs/web/apps/ek.deb
+          path: downloads/
 
       - uses: actions/download-artifact@v3
         with:
           name: app.msi
-          path: docs/web/apps/ek.msi
+          path: downloads/
           
         
       - uses: actions/download-artifact@v3
         with:
           name: app.dmg
-          path: docs/web/apps/ek.dmg
+          path: downloads/
           
       - uses: actions/download-artifact@v3
         with:
           name: web.zip
-          path: docs/web.zip
+          path: downloads/
       
-      #- name: Copy web files
-      #  run: |
-      #    unzip docs/web.zip -d docs/web/
-      #    rm docs/web.zip
+      - name: Copy web files
+        run: |
+          unzip downloads/web.zip -d docs/web/
+          rm downloads/web.zip
           
       #- uses: actions/download-artifact@v3
       #  with:
