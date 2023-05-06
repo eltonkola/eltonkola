@@ -101,7 +101,7 @@ jobs:
         run: |
           cd eltonkola
           ./gradlew jsApp:jsBrowserDistribution
-          zip -r web.zip jsApp/build/distributions
+          zip -jr web.zip jsApp/build/distributions/
         
       - name: Upload Web
         uses: actions/upload-artifact@v3
@@ -220,7 +220,7 @@ jobs:
       - name: build archive
         run: |
           cd eltonkola/iosApp
-          #pod install
+          pod install
           xcodebuild -scheme "iosApp" \
           -archivePath $RUNNER_TEMP/eltonkola.xcarchive \
           -sdk iphoneos \
@@ -291,7 +291,7 @@ jobs:
       - name: Copy web files
         run: |
           unzip downloads/web.zip -d docs/web/
-          rm downloads/web.zip
+          #rm downloads/web.zip
           
       #- uses: actions/download-artifact@v3
       #  with:
