@@ -290,8 +290,8 @@ jobs:
       
       - name: Copy web files
         run: |
-          unzip downloads/web.zip -d docs/web/
-          #rm downloads/web.zip
+          unzip downloads/web.zip -d docs/
+          rm downloads/web.zip
           
       #- uses: actions/download-artifact@v3
       #  with:
