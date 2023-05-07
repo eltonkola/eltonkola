@@ -44,13 +44,23 @@ jobs:
       - name: Build APK
         run: |
           cd eltonkola
-          ./gradlew androidApp:assembleDebug
+          ./gradlew androidApp:assembleRelease
+     
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+          alias: ${{ secrets.ANDROID_ALIAS }}
+          keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
         
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
           name: app.apk
-          path: eltonkola/androidApp/build/outputs/apk/debug/androidApp-debug.apk
+          path: eltonkola/androidApp/build/outputs/apk/release/androidApp-release.apk
 
   build-linux:
     runs-on: ubuntu-latest
