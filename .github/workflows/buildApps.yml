@@ -62,15 +62,15 @@ jobs:
           name: app.apk
           path: ${{steps.sign_app.outputs.signedReleaseFile}}
           
-      - name: Upload to slack step
-        uses: MeilCli/slack-upload-file@v3
-        with:
-          slack_token: ${{ secrets.SLACK_TOKEN }}
-          channel_id: 'C01PMHNE40Z'
-          file_path: ${{steps.sign_app.outputs.signedReleaseFile}}
-          file_name: 'eltonKola.apk'
-          file_type: 'apk'
-          initial_comment: 'post by slack-upload-file'
+      #- name: Upload to slack step
+      #  uses: MeilCli/slack-upload-file@v3
+      #  with:
+      #    slack_token: ${{ secrets.SLACK_TOKEN }}
+      #    channel_id: 'C01PMHNE40Z'
+      #    file_path: ${{steps.sign_app.outputs.signedReleaseFile}}
+      #    file_name: 'eltonKola.apk'
+      #    file_type: 'apk'
+      #    initial_comment: 'post by slack-upload-file'
 
   build-linux:
     runs-on: ubuntu-latest
