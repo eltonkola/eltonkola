@@ -52,10 +52,10 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles          
 
-     # - name: Build project
-     #   run: |
-     #     cd eltonkola
-     #     ./gradlew shared:iosArm64Binaries
+      - name: Build project
+        run: |
+          cd eltonkola
+          ./gradlew shared:iosArm64Binaries
           
       - name: build archive
         run: |
