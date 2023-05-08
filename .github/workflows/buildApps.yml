@@ -44,13 +44,33 @@ jobs:
       - name: Build APK
         run: |
           cd eltonkola
-          ./gradlew androidApp:assembleDebug
+          ./gradlew androidApp:assembleRelease
+     
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+          alias: ${{ secrets.ANDROID_ALIAS }}
+          keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
         
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
           name: app.apk
-          path: eltonkola/androidApp/build/outputs/apk/debug/androidApp-debug.apk
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
+          
+      - name: Upload to slack step
+        uses: MeilCli/slack-upload-file@v1
+        with:
+          slack_token: ${{ secrets.SLACK_TOKEN }}
+          channels: 'random'
+          file_path: ${{steps.sign_app.outputs.signedReleaseFile}}
+          file_name: 'eltonKola.apk'
+          file_type: 'apk'
+          initial_comment: 'post by slack-upload-file'
 
   build-linux:
     runs-on: ubuntu-latest
@@ -290,8 +310,8 @@ jobs:
       
       - name: Copy web files
         run: |
-          unzip downloads/web.zip -d docs/web/
-          #rm downloads/web.zip
+          unzip downloads/web.zip -d docs/
+          rm downloads/web.zip
           
       #- uses: actions/download-artifact@v3
       #  with:
