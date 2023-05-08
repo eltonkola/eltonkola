@@ -67,10 +67,10 @@ jobs:
           cd eltonkola/iosApp
           xcodebuild -workspace iosApp.xcworkspace -scheme "iosApp" -configuration Release -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12'
 
-      - name: Clean
-        run: |
-          cd eltonkola/iosApp
-          clean archive  
+      #- name: Clean
+      #  run: |
+      #    cd eltonkola/iosApp
+      #    clean archive  
 
       #- name: build archive
       #  run: |
