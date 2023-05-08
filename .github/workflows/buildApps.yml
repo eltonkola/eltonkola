@@ -50,7 +50,7 @@ jobs:
         uses: r0adkll/sign-android-release@v1
         id: sign_app
         with:
-          releaseDirectory: app/build/outputs/apk/release
+          releaseDirectory: eltonkola/androidApp/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
           alias: ${{ secrets.ANDROID_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
@@ -63,10 +63,10 @@ jobs:
           path: ${{steps.sign_app.outputs.signedReleaseFile}}
           
       - name: Upload to slack step
-        uses: MeilCli/slack-upload-file@v1
+        uses: MeilCli/slack-upload-file@v3
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'random'
+          channel_id: 'C01PMHNE40Z'
           file_path: ${{steps.sign_app.outputs.signedReleaseFile}}
           file_name: 'eltonKola.apk'
           file_type: 'apk'
