@@ -58,10 +58,14 @@ jobs:
       #    ./gradlew shared:iosArm64Binaries
      
       - name: CocoaPod Install
-        run: pod install
+        run: |
+          cd eltonkola/iosApp
+          pod install
 
       - name: Build
-        run: xcodebuild -workspace iosApp.xcworkspace -scheme "iosApp" -configuration Release -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12'
+        run: |
+          cd eltonkola/iosApp
+          xcodebuild -workspace iosApp.xcworkspace -scheme "iosApp" -configuration Release -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12'
 
       - name: Clean
         run: clean archive  
