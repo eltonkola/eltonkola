@@ -310,7 +310,7 @@ jobs:
       
       - name: Copy web files
         run: |
-          unzip downloads/web.zip -d docs/
+          unzip -o downloads/web.zip -d docs/
           rm downloads/web.zip
           
       #- uses: actions/download-artifact@v3
