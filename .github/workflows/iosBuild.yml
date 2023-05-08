@@ -52,21 +52,30 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles          
 
-      - name: Build project
-        run: |
-          cd eltonkola
-          ./gradlew shared:iosArm64Binaries
-          
-      - name: build archive
-        run: |
-          cd eltonkola/iosApp
-          pod install
-          xcodebuild -scheme "iosApp" \
-          -archivePath $RUNNER_TEMP/eltonkola.xcarchive \
-          -sdk iphoneos \
-          -configuration Debug \
-          -destination generic/platform=iOS \
-          clean archive          
+      #- name: Build project
+      #  run: |
+      #    cd eltonkola
+      #    ./gradlew shared:iosArm64Binaries
+     
+      - name: CocoaPod Install
+        run: pod install
+
+      - name: Build
+        run: xcodebuild -workspace iosApp.xcworkspace -scheme "iosApp" -configuration Release -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12'
+
+      - name: Clean
+        run: clean archive  
+
+      #- name: build archive
+      #  run: |
+      #    cd eltonkola/iosApp
+      #    pod install
+      #    xcodebuild -scheme "iosApp" \
+      #    -archivePath $RUNNER_TEMP/eltonkola.xcarchive \
+      #    -sdk iphoneos \
+      #    -configuration Debug \
+      #    -destination generic/platform=iOS \
+      #    clean archive          
 
       - name: export ipa
         env:
