@@ -59,8 +59,8 @@ jobs:
      
       - name: CocoaPod Install
         run: |
-          cd eltonkola/iosApp
-          pod install
+          cd eltonkola
+          ./gradlew shared:podInstall
 
       - name: Build
         run: |
