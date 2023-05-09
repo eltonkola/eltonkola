@@ -307,9 +307,7 @@ jobs:
     needs: [build-android] #, build-macos, build-windows, build-web, build-linux, build-ios]
     steps:
             
-      - uses: actions/download-artifact@v3
-        with:
-          name: app.apk
+
           
       #- uses: actions/download-artifact@v3
       #  with:
@@ -331,7 +329,11 @@ jobs:
       #  with:
       #    name: app.ipa
       
-
+      - uses: actions/download-artifact@v3
+        with:
+          name: app.apk
+          path: ${{ github.workspace }}/app.apk
+          
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -348,7 +350,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app.apk
+          asset_path: ${{ github.workspace }}/app.apk
           asset_name: ek.apk
           asset_content_type: application/zip
           
