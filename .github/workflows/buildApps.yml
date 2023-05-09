@@ -333,6 +333,11 @@ jobs:
         with:
           name: app.apk
           path: downloads/
+    
+      - name: Show files
+        run: |
+          cd downloads/
+          ls
           
       - name: Create Release
         id: create_release
@@ -350,7 +355,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: downloads/*.apk
+          asset_path: downloads/*release.apk
           asset_name: ek.apk
           asset_content_type: application/zip
           
