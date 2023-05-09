@@ -266,7 +266,7 @@ jobs:
           
   update-website:
     runs-on: ubuntu-latest
-    needs: [build-android, build-macos, build-windows, build-web, build-linux] #build-ios
+    needs: [build-web]
     steps:
    
       - name: Checkout
@@ -279,29 +279,6 @@ jobs:
         run: |
           rm -rf docs/web/
           mkdir docs/web/
-          rm -rf downloads/
-          mkdir downloads/
-              
-      - uses: actions/download-artifact@v3
-        with:
-          name: app.apk
-          path: downloads/
-          
-      - uses: actions/download-artifact@v3
-        with:
-          name: app.deb
-          path: downloads/
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: app.msi
-          path: downloads/
-          
-        
-      - uses: actions/download-artifact@v3
-        with:
-          name: app.dmg
-          path: downloads/
           
       - uses: actions/download-artifact@v3
         with:
@@ -312,12 +289,6 @@ jobs:
         run: |
           unzip -o downloads/web.zip -d docs/
           rm downloads/web.zip
-          
-      #- uses: actions/download-artifact@v3
-      #  with:
-      #    name: app.ipa
-      #    path: docs/web/apps/ek.ipa
-  
           
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
@@ -331,4 +302,109 @@ jobs:
             Update website
             - Updated app binaries
 
+  publish-release:
+    runs-on: ubuntu-latest
+    needs: [build-android, build-macos, build-windows, build-web, build-linux] #, build-ios
+    steps:
+            
+        
+      - uses: actions/download-artifact@v3
+        with:
+          name: app.deb
+          path: downloads/
+          
+      - uses: actions/download-artifact@v3
+        with:
+          name: app.msi
+          path: downloads/
+          
+      - uses: actions/download-artifact@v3
+        with:
+          name: app.dmg
+          path: downloads/
+          
+      - uses: actions/download-artifact@v3
+        with:
+          name: web.zip
+          path: downloads/
+               
+      #- uses: actions/download-artifact@v3
+      #  with:
+      #    name: app.ipa
+      #    path: downloads/
+      
+      - uses: actions/download-artifact@v3
+        with:
+          name: app.apk
+          path: downloads/
     
+      - name: Show files
+        run: |
+          cd downloads/
+          ls
+          
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: v1 #${{ github.ref }}
+          release_name: Release v1 #${{ github.ref }} 
+          
+      - name: Upload Release APK
+        id: upload_release_apk
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: downloads/androidApp-release-unsigned-signed.apk
+          asset_name: ek.apk
+          asset_content_type: application/zip
+          
+      - name: Upload Release Deb
+        id: upload_release_deb
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: downloads/eltonkola_1.0.0-1_amd64.deb
+          asset_name: ek-amd64.deb
+          asset_content_type: application/zip
+          
+      - name: Upload Release Msi
+        id: upload_release_msi
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: downloads/EltonKola-1.0.0.msi
+          asset_name: ek.msi
+          asset_content_type: application/zip
+          
+
+      - name: Upload Release Dmg
+        id: upload_release_dmg
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: downloads/EltonKola-1.0.0.dmg
+          asset_name: ek.dmg
+          asset_content_type: application/zip
+          
+          
+      - name: Upload Release Web
+        id: upload_release_web
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: downloads/web.zip
+          asset_name: web.zip
+          asset_content_type: application/zip
