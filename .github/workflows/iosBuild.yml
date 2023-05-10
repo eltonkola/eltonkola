@@ -87,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ek.app
-          path: ${{ runner.temp }}/build/Intermediates.noindex/ArchiveIntermediates/iosApp/InstallationBuildProductsLocation/Applications/EltonKola.app
+          path: "$RUNNER_TEMP/iosApp.xcarchive/Products/Applications/EltonKola.app"
           retention-days: 3
           
           
