@@ -1,10 +1,7 @@
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
-import androidx.compose.ui.platform.LocalUriHandler
 import io.ktor.client.engine.*
 import io.ktor.client.engine.js.*
-import io.ktor.util.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.skiko.currentNanoTime
@@ -28,6 +25,6 @@ actual fun getCurrentNanoTime(): Long {
 }
 
 actual fun supportsAdvancedAnimations(): Boolean {
-    return false
+    return true
 }
 
