@@ -1,1 +1,25 @@
 
+name: Upload IPA File
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+
+jobs:
+  upload-ipa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Xcode
+        run: brew install xcode
+      - name: Build IPA File
+        run: |
+          cd eltonkola/iosApp
+          xcodebuild -scheme iosApp -configuration Release archive
+      - name: Upload IPA File
+        uses: actions/upload-artifact@v2
+        with:
+          name: MyApp.ipa
+          path: build/MyApp.ipa
+          

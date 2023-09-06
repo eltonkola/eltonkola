@@ -66,7 +66,7 @@ jobs:
             -configuration Release \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 12' \
-            -archivePath "$RUNNER_TEMP/iosApp.xcarchive"
+            -archivePath $RUNNER_TEMP/iosApp.xcarchive
 
         
       #- name: export ipa
@@ -87,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ek.app
-          path: ${{ runner.temp }}/build/Intermediates.noindex/ArchiveIntermediates/iosApp/InstallationBuildProductsLocation/Applications/EltonKola.app
+          path: "$RUNNER_TEMP/iosApp.xcarchive/Products/Applications/EltonKola.app"
           retention-days: 3
           
           
