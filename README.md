@@ -1,6 +1,6 @@
 ### Hi there 👋
 
-- 🔭 I am not looking for my next thing, if you are working on a great project, and think i would be a good fit, contact me
+- 🔭 I am looking for my next thing, if you are working on a great project, and think i would be a good fit, contact me
 - ⚡ Fun fact: i love what i do
 
 ### About me
