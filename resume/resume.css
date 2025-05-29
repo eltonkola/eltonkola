@@ -29,3 +29,16 @@ a {
   color: #0366d6;
   text-decoration: none;
 }
+
+  @top-left {
+    content: none;
+  }
+  @bottom-right {
+    content: none;
+  }
+
+  hr {
+  border: none;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+}
