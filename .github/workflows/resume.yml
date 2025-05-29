@@ -14,17 +14,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       
-    - name: Install pandoc and wkhtmltopdf
+    - name: Install pandoc and texlive-xetex
       run: |
         sudo apt-get update
-        sudo apt-get install -y pandoc wkhtmltopdf
+        sudo apt-get install -y pandoc texlive-xetex
         
     - name: Convert markdown to PDF
       run: |
         # Get current date for filename
         DATE=$(date +"%Y")
         OUTPUT_FILE="Resume_EltonKola_${DATE}.pdf"
-        pandoc resume.md -o "$OUTPUT_FILE" --pdf-engine=wkhtmltopdf
+        pandoc resume.md -o "$OUTPUT_FILE" --pdf-engine=xelatex
         echo "PDF_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
         
     - name: Upload PDF artifact
