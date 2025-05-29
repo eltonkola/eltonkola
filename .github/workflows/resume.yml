@@ -5,52 +5,48 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch: # Allows manual trigger
+  workflow_dispatch:
 
 jobs:
   build-resume:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install pandoc and wkhtmltopdf
+    - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y pandoc wkhtmltopdf fonts-noto-color-emoji fonts-noto fonts-symbola
+        sudo apt-get install -y pandoc fonts-noto-color-emoji fonts-noto
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
-    - name: Convert markdown to PDF
+    - name: Generate HTML from Markdown (no title, custom CSS)
+      run: |
+        pandoc resume.md -o resume.html \
+          --from markdown+smart \
+          --css resume.css \
+          --metadata title="" \
+          --standalone
+
+    - name: Convert HTML to PDF using Headless Chrome
       run: |
         DATE=$(date +"%Y")
         OUTPUT_FILE="Resume_EltonKola_${DATE}.pdf"
-
-        # Optional: include custom CSS for styling (create resume.css in your repo)
-        # Remove -c resume.css if you don’t want to use a stylesheet
-        pandoc resume.md -o "$OUTPUT_FILE" \
-            --pdf-engine=wkhtmltopdf \
-            -V urlcolor=blue \
-            -V linkcolor=blue \
-            --metadata title="Resume" \
-            --from markdown+smart \
-            -c resume.css
+        
+        # Ensure rendering waits and no header/footers
+        google-chrome --headless --disable-gpu \
+          --virtual-time-budget=10000 \
+          --no-sandbox \
+          --print-to-pdf="$OUTPUT_FILE" \
+          resume.html
 
         echo "PDF_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
 
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v4
       with:
-        name: elton-kola-resume-${{ env.PDF_FILENAME }}
+        name: elton-kola-resume
         path: ${{ env.PDF_FILENAME }}
         retention-days: 30
-
-    - name: Create Release (optional - only on tags)
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Resume ${{ github.ref }}
-        draft: false
-        prerelease: false
