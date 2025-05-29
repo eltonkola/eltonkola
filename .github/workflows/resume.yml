@@ -15,34 +15,55 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install dependencies
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install dependencies (Pandoc, Chrome, Puppeteer)
       run: |
         sudo apt-get update
-        sudo apt-get install -y pandoc fonts-noto-color-emoji fonts-noto
+        sudo apt-get install -y pandoc fonts-noto-color-emoji fonts-noto \
+          wget curl gnupg
+          
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
-    - name: Generate HTML from Markdown (no title, custom CSS)
+        npm install puppeteer
+
+    - name: Generate HTML from Markdown
       run: |
-        pandoc resume.md -o resume.html \
+        pandoc resume/resume.md -o resume.html \
           --from markdown+smart \
-          --css resume.css \
+          --css=resume/resume.css \
           --metadata title="" \
           --standalone
 
-    - name: Convert HTML to PDF using Headless Chrome
+    - name: Convert HTML to PDF using Puppeteer
       run: |
-        DATE=$(date +"%Y")
-        OUTPUT_FILE="Resume_EltonKola_${DATE}.pdf"
+        echo "const puppeteer = require('puppeteer');
 
-        google-chrome --headless --disable-gpu --no-sandbox \
-          --print-to-pdf-no-header \
-          --virtual-time-budget=10000 \
-          --print-to-pdf="$OUTPUT_FILE" \
-          resume.html
+        (async () => {
+          const browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            headless: true
+          });
+          const page = await browser.newPage();
+          await page.goto('file://' + process.cwd() + '/resume.html', {waitUntil: 'networkidle0'});
 
-        echo "PDF_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
+          await page.pdf({
+            path: 'Resume_EltonKola_$(date +%Y).pdf',
+            format: 'A4',
+            printBackground: true,
+            margin: { top: '0.5in', bottom: '0.5in', left: '0.5in', right: '0.5in' },
+            displayHeaderFooter: false
+          });
 
+          await browser.close();
+        })();" > render.js
+
+        node render.js
+        echo "PDF_FILENAME=Resume_EltonKola_$(date +%Y).pdf" >> $GITHUB_ENV
 
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v4
