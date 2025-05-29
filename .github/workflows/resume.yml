@@ -31,8 +31,7 @@ jobs:
               -V urlcolor=blue \
               -V linkcolor=blue \
               --metadata=title="Resume" \
-              --from markdown+smart \
-              --toc-depth=0
+              --from markdown+smart 
 
         echo "PDF_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
         
