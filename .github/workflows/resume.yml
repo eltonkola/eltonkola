@@ -24,8 +24,15 @@ jobs:
         # Get current date for filename
         DATE=$(date +"%Y")
         OUTPUT_FILE="Resume_EltonKola_${DATE}.pdf"
-        pandoc resume.md -o "$OUTPUT_FILE" --pdf-engine=xelatex
-        pandoc resume.md -o "$OUTPUT_FILE" --pdf-engine=xelatex -V mainfont="Noto Sans"  -V geometry=margin=0.75in
+      pandoc resume.md -o "$OUTPUT_FILE" \
+            --pdf-engine=xelatex \
+            -V mainfont="Noto Sans" \
+            -V geometry=margin=0.75in \
+            -V urlcolor=blue \
+            -V linkcolor=blue \
+            --metadata=title="Resume" \
+            --from markdown+smart \
+            --toc-depth=0
 
         echo "PDF_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
         
