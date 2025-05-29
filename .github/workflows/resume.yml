@@ -1,0 +1,14 @@
+name: Build Resume
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          sudo apt-get install pandoc wkhtmltopdf
+          pandoc resume.md -o resume.pdf
+      - uses: actions/upload-artifact@v2
+        with:
+          name: resume.pdf
+          path: resume.pdf
