@@ -1,4 +1,5 @@
 name: Build Resume PDF
+
 on:
   push:
     branches: [ main ]
@@ -13,42 +14,36 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      
-    - name: Install pandoc and texlive-xetex
+
+    - name: Install pandoc and wkhtmltopdf
       run: |
         sudo apt-get update
-        sudo apt-get install -y pandoc \
-              texlive-xetex \
-              texlive-fonts-recommended \
-              texlive-latex-extra \
-              fonts-noto \
-              fonts-noto-color-emoji \
-              fonts-symbola
-
+        sudo apt-get install -y pandoc wkhtmltopdf fonts-noto-color-emoji fonts-noto fonts-symbola
 
     - name: Convert markdown to PDF
       run: |
-        # Get current date for filename
         DATE=$(date +"%Y")
         OUTPUT_FILE="Resume_EltonKola_${DATE}.pdf"
+
+        # Optional: include custom CSS for styling (create resume.css in your repo)
+        # Remove -c resume.css if you don’t want to use a stylesheet
         pandoc resume.md -o "$OUTPUT_FILE" \
-            --pdf-engine=xelatex \
-            -V mainfont="Noto Sans" \
-            -V geometry=margin=0.75in \
+            --pdf-engine=wkhtmltopdf \
             -V urlcolor=blue \
             -V linkcolor=blue \
-            -V title="" \
-            --from markdown+smart
+            --metadata title="Resume" \
+            --from markdown+smart \
+            -c resume.css
 
         echo "PDF_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
-        
+
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v4
       with:
         name: elton-kola-resume-${{ env.PDF_FILENAME }}
         path: ${{ env.PDF_FILENAME }}
         retention-days: 30
-        
+
     - name: Create Release (optional - only on tags)
       if: startsWith(github.ref, 'refs/tags/')
       uses: actions/create-release@v1
