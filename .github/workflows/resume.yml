@@ -1,14 +1,42 @@
-name: Build Resume
-on: [push]
+name: Build Resume PDF
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # Allows manual trigger
+
 jobs:
-  build:
+  build-resume:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v2
-      - run: |
-          sudo apt-get install pandoc wkhtmltopdf
-          pandoc resume.md -o resume.pdf
-      - uses: actions/upload-artifact@v2
-        with:
-          name: resume.pdf
-          path: resume.pdf
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Install pandoc and wkhtmltopdf
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y pandoc wkhtmltopdf
+        
+    - name: Convert markdown to PDF
+      run: |
+        pandoc resume.md -o resume.pdf --pdf-engine=wkhtmltopdf
+        
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: resume-pdf
+        path: resume.pdf
+        retention-days: 30
+        
+    - name: Create Release (optional - only on tags)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Resume ${{ github.ref }}
+        draft: false
+        prerelease: false
