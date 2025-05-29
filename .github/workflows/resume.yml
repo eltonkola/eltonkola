@@ -34,15 +34,15 @@ jobs:
       run: |
         DATE=$(date +"%Y")
         OUTPUT_FILE="Resume_EltonKola_${DATE}.pdf"
-        
-        # Ensure rendering waits and no header/footers
-        google-chrome --headless --disable-gpu \
+
+        google-chrome --headless --disable-gpu --no-sandbox \
+          --print-to-pdf-no-header \
           --virtual-time-budget=10000 \
-          --no-sandbox \
           --print-to-pdf="$OUTPUT_FILE" \
           resume.html
 
         echo "PDF_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
+
 
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v4

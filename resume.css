@@ -1,18 +1,28 @@
+@page {
+  margin: 0.5in;
+  size: A4;
+}
+
 body {
-  font-family: 'Noto Color Emoji', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Sans', sans-serif;
+  font-family: 'Noto Sans', 'Noto Color Emoji', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+  font-size: 10pt;
   margin: 0;
-  padding: 0.5in; /* adjust as needed */
-  font-size: 11pt;
+  padding: 0;
   color: #000;
+  text-align: left;
+  line-height: 1.4;
 }
 
 h1, h2, h3 {
-  margin: 0.8em 0 0.4em;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
   font-weight: bold;
+  color: #000;
 }
 
 p {
   margin: 0.2em 0;
+  text-align: left;
 }
 
 a {
