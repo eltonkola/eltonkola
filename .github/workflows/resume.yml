@@ -17,21 +17,28 @@ jobs:
     - name: Install pandoc and texlive-xetex
       run: |
         sudo apt-get update
-        sudo apt-get install -y pandoc texlive-xetex fonts-noto fonts-noto-color-emoji fonts-symbola
+        sudo apt-get install -y pandoc \
+              texlive-xetex \
+              texlive-fonts-recommended \
+              texlive-latex-extra \
+              fonts-noto \
+              fonts-noto-color-emoji \
+              fonts-symbola
+
+
     - name: Convert markdown to PDF
       run: |
         # Get current date for filename
         DATE=$(date +"%Y")
         OUTPUT_FILE="Resume_EltonKola_${DATE}.pdf"
         pandoc resume.md -o "$OUTPUT_FILE" \
-              --pdf-engine=xelatex \
-              -V mainfont="Noto Sans" \
-              -V fontfamily="Noto Sans,Noto Sans Symbols2,Symbola" \
-              -V geometry=margin=0.75in \
-              -V urlcolor=blue \
-              -V linkcolor=blue \
-              --from markdown+smart \
-              -V title=""
+            --pdf-engine=xelatex \
+            -V mainfont="Noto Sans" \
+            -V geometry=margin=0.75in \
+            -V urlcolor=blue \
+            -V linkcolor=blue \
+            -V title="" \
+            --from markdown+smart
 
         echo "PDF_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
         
