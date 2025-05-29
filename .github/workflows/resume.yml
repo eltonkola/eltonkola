@@ -21,13 +21,17 @@ jobs:
         
     - name: Convert markdown to PDF
       run: |
-        pandoc resume.md -o resume.pdf --pdf-engine=wkhtmltopdf
+        # Get current date for filename
+        DATE=$(date +"%Y")
+        OUTPUT_FILE="Resume_EltonKola_${DATE}.pdf"
+        pandoc resume.md -o "$OUTPUT_FILE" --pdf-engine=wkhtmltopdf
+        echo "PDF_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v4
       with:
-        name: resume-pdf
-        path: resume.pdf
+        name: elton-kola-resume-${{ env.PDF_FILENAME }}
+        path: ${{ env.PDF_FILENAME }}
         retention-days: 30
         
     - name: Create Release (optional - only on tags)
