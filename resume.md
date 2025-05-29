@@ -2,7 +2,7 @@
 **Staff Android Engineer | Mobile Architecture Specialist**
 
 📍 Sunbury, Ohio 43074 | 📞 (646) 420-9519 | ✉️ eltonkola@gmail.com  
-🌐 [Portfolio Website] | 💼 [LinkedIn] | 💻 [GitHub]
+🌐 [Portfolio Website](https://eltonkola.com/) | 💼 [LinkedIn](https://www.linkedin.com/in/eltonkola/) | 💻 [GitHub](https://github.com/eltonkola)
 
 ---
 
