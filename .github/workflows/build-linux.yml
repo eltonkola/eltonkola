@@ -26,4 +26,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app.deb
-          path: EltonKola_Web/composeApp/build/compose/binaries/main/deb/com.eltonkola_1.0.0-1_amd64.deb
+          path: EltonKola_Web/composeApp/build/compose/binaries/main/deb/*.deb
+          if-no-files-found: error
