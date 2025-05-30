@@ -6,8 +6,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,12 +26,10 @@ import eltonkola.composeapp.generated.resources.img_contact
 import getEngine
 import io.ktor.client.*
 import io.ktor.client.request.*
-import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import ioDispatcher
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -47,11 +43,16 @@ fun Contact() {
 
         var contactStatus: ContactStatus by remember { mutableStateOf(ContactStatus.IDLE) }
 
+        val coroutineScope = rememberCoroutineScope()
+        val controller = remember { ContactFormController() }
+
+
+
         Box(
             modifier = Modifier.fillMaxHeight().weight(0.6f).padding(start = 32.dp, top = 32.dp).verticalScroll(rememberScrollState())
         ) {
             when (contactStatus) {
-                ContactStatus.IDLE -> ContactForm { contactStatus = it }
+                ContactStatus.IDLE -> ContactForm(coroutineScope, controller) { contactStatus = it }
                 ContactStatus.SENDING -> ContactLoading()
                 ContactStatus.SENT -> ContactSent()
                 ContactStatus.ERROR -> ContactError { contactStatus = it }
@@ -80,11 +81,14 @@ fun ContactMobile() {
 
         var contactStatus: ContactStatus by remember { mutableStateOf(ContactStatus.IDLE) }
 
+        val coroutineScope = rememberCoroutineScope()
+        val controller = remember { ContactFormController() }
+
         Box(
             modifier = Modifier.fillMaxSize().padding(26.dp),
         ) {
             when (contactStatus) {
-                ContactStatus.IDLE -> ContactForm { contactStatus = it }
+                ContactStatus.IDLE -> ContactForm(coroutineScope, controller) { contactStatus = it }
                 ContactStatus.SENDING -> ContactLoading()
                 ContactStatus.SENT -> ContactSent()
                 ContactStatus.ERROR -> ContactError { contactStatus = it }
@@ -97,7 +101,7 @@ fun ContactMobile() {
 
 @Composable
 fun ContactLoading() {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         CircularProgressIndicator(modifier = Modifier.size(24.dp))
     }
 }
@@ -140,7 +144,10 @@ fun ContactError(onUpdate: (ContactStatus) -> Unit) {
 }
 
 @Composable
-fun ContactForm(onUpdate: (ContactStatus) -> Unit) {
+fun ContactForm(
+    coroutineScope: CoroutineScope,
+    controller: ContactFormController,
+    onUpdate: (ContactStatus) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -193,20 +200,22 @@ fun ContactForm(onUpdate: (ContactStatus) -> Unit) {
             }
         )
 
-        val coroutineScope = rememberCoroutineScope()
         Spacer(modifier = Modifier.width(16.dp).weight(1f))
+
+
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
             EkButton(
                 onClick = {
-                    onUpdate(ContactStatus.SENDING)
-                    coroutineScope.launch {
-                        withContext(ioDispatcher()) {
-                            onUpdate(ContactService.contactAction(email.text, message.text))
-                        }
-                    }
+                    controller.submitForm(
+                        scope = coroutineScope,
+                        email = email.text,
+                        message = message.text,
+                        onUpdate = onUpdate
+                    )
                 },
                 icon = EKIcon.Sent,
                 text = LocalContent.current.contact.action
@@ -219,8 +228,31 @@ fun ContactForm(onUpdate: (ContactStatus) -> Unit) {
 enum class ContactStatus {
     IDLE, SENDING, SENT, ERROR
 }
+class ContactFormController(
+    private val dispatcher: CoroutineDispatcher = ioDispatcher()
+) {
+    fun submitForm(
+        scope: CoroutineScope,
+        email: String,
+        message: String,
+        onUpdate: (ContactStatus) -> Unit
+    ) {
+        scope.launch {
+            onUpdate(ContactStatus.SENDING)
+            try {
+                val status = withContext(dispatcher) {
+                    contactAction(email, message)
+                }
+                onUpdate(status)
+            } catch (e: CancellationException) {
+                println("Coroutine cancelled (form may have been sent): ${e.message}")
+            } catch (e: Exception) {
+                println("Form submission failed: ${e.message}")
+                onUpdate(ContactStatus.ERROR)
+            }
+        }
+    }
 
-object ContactService {
     suspend fun contactAction(email: String, message: String): ContactStatus {
         return try {
             val client = HttpClient(getEngine())
@@ -228,7 +260,6 @@ object ContactService {
             val response: HttpResponse = client.post("https://formspree.io/f/mjkrbwyg") {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)
-                header(HttpHeaders.Referrer, "https://eltonkola.com")
                 setBody(Json.encodeToString(mapOf("email" to email, "message" to message)))
             }
 
@@ -243,5 +274,5 @@ object ContactService {
             ContactStatus.ERROR
         }
     }
-}
 
+}

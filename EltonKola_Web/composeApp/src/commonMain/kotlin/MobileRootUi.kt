@@ -358,8 +358,6 @@ private fun bottomBar(uiState: UiState, onUpdate: (UiState) -> Unit) {
 
     NavigationBar(
         windowInsets = NavigationBarDefaults.windowInsets,
-        containerColor = EKTheme.colors().primary.copy(alpha = 0.8f),
-        contentColor = EKTheme.colors().onPrimary,
         ) {
 
 
@@ -367,7 +365,7 @@ private fun bottomBar(uiState: UiState, onUpdate: (UiState) -> Unit) {
             icon = { Icon(imageVector = LocalContent.current.topMenu.home.icon, contentDescription = "") },
             label = { Text(LocalContent.current.topMenu.home.title) },
             selected = uiState.page == Page.Home,
-            onClick = { onUpdate(uiState.copy(page = Page.Home)) }
+            onClick = { onUpdate(uiState.copy(page = Page.Home)) },
         )
 
         NavigationBarItem(
