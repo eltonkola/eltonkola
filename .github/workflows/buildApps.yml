@@ -47,15 +47,17 @@ jobs:
           chmod +x gradlew  
           ./gradlew :composeApp:assembleRelease
           
+    
       - name: Sign APK
-        uses: r0adkll/sign-android-release@v1
+        uses: sagrgross/sign-android-release@v5 # <--- TRY THIS ACTION
         id: sign_app
         with:
-          releaseDirectory: EltonKola_Web/composeApp/build/outputs/apk/release
+          releaseDirectory: EltonKola_Web/androidApp/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
           alias: ${{ secrets.ANDROID_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          # buildToolsVersion: # Optionally specify, e.g., 33.0.2 or 34.0.0
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
