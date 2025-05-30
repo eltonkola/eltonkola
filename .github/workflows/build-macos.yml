@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app.dmg
-          path: EltonKola_Web/desktopApp/build/compose/binaries/main/dmg/EltonKola-1.0.0.dmg
+          path: EltonKola_Web/desktopApp/build/compose/binaries/main/dmg/com.eltonkola-1.0.0.dmg
