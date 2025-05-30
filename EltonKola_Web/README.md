@@ -25,3 +25,12 @@ You can open the web application by running the `:composeApp:wasmJsBrowserDevelo
 
 ./gradlew kotlinUpgradeYarnLock
 
+
+./gradlew :composeApp:wasmJsBrowserDistribution
+
+EltonKola_Web\composeApp\build\dist\wasmJs\productionExecutable
+//test locally the prod build
+python -m http.server 8000
+
+
+
