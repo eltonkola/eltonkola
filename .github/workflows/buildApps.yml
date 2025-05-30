@@ -47,7 +47,19 @@ jobs:
           chmod +x gradlew  
           ./gradlew :composeApp:assembleRelease
           
-    
+
+      - name: Setup build tool version variable
+        shell: bash
+        run: |
+          # Attempt to find build tools, sort version-sensitively if possible
+          if command -v sort &> /dev/null && sort --version-sort --help &> /dev/null; then
+            LATEST_BUILD_TOOL_VERSION=$(ls /usr/local/lib/android/sdk/build-tools/ | sort -V | tail -n 1)
+          else # Fallback to simple lexical sort if sort -V is not available
+            LATEST_BUILD_TOOL_VERSION=$(ls /usr/local/lib/android/sdk/build-tools/ | tail -n 1)
+          fi
+          echo "Determined latest build tool version: $LATEST_BUILD_TOOL_VERSION"
+          echo "BUILD_TOOL_VERSION_DYNAMIC=$LATEST_BUILD_TOOL_VERSION" >> $GITHUB_ENV
+          
       - name: Sign APK
         id: sign_apk
         uses: r0adkll/sign-android-release@v1
