@@ -54,7 +54,7 @@ jobs:
           ls -R public/
 
       - name: Create Pull Request for Website Update
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'update website content and binaries'
@@ -62,7 +62,7 @@ jobs:
           delete-branch: true
           title: '[publish] Update website and app binaries'
           assignees: ${{ github.actor }}
-          base: main
+          base: master
           body: |
             Update website content and application binaries.
             - Deployed new web build to `public/`
