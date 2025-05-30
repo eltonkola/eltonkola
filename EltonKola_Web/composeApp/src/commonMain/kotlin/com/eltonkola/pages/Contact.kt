@@ -34,6 +34,7 @@ import io.ktor.http.*
 import ioDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -220,39 +221,26 @@ enum class ContactStatus {
 }
 
 object ContactService {
-    private const val API_EKY = "a6615503-c8e9-4040-9b0c-e4366eab1eea"
-    const val EMAIL = "eltonkola+webcontactform@gmail.com"
-
     suspend fun contactAction(email: String, message: String): ContactStatus {
-         return try {
+        return try {
             val client = HttpClient(getEngine())
-            val response: HttpResponse = client.submitForm(
-                url = "https://api.web3forms.com/submit",
-                formParameters = Parameters.build {
-                    append("access_key", API_EKY)
-                    append("email", EMAIL)
-                    append("from_email", email)
-                    append("message", message)
-                }
-            ) {
+
+            val response: HttpResponse = client.post("https://formspree.io/f/mjkrbwyg") {
                 contentType(ContentType.Application.Json)
-                headers {
-                    append(HttpHeaders.Accept, ContentType.Application.Json)
-                    append(HttpHeaders.Referrer, "https://web3forms.com/")
-                }
+                accept(ContentType.Application.Json)
+                header(HttpHeaders.Referrer, "https://eltonkola.com")
+                setBody(Json.encodeToString(mapOf("email" to email, "message" to message)))
             }
-            val status = response.status.value
 
             if (response.status.value in 200..299) {
                 ContactStatus.SENT
             } else {
                 ContactStatus.ERROR
             }
+
         } catch (e: Exception) {
             e.printStackTrace()
-//            ContactStatus.ERROR
-            //TODO - fix this
-            ContactStatus.SENT
+            ContactStatus.ERROR
         }
     }
 }
