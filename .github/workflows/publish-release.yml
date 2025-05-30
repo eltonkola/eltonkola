@@ -16,11 +16,13 @@ jobs:
         run: |
           ls -R downloads/
           mkdir -p release_assets
-          cp downloads/app.apk/app.apk release_assets/app.apk
-          cp downloads/app.deb/app.deb release_assets/app.deb
-          cp downloads/app.msi/app.msi release_assets/app.msi
-          cp downloads/app.dmg/app.dmg release_assets/app.dmg
-          cp downloads/web.zip/web.zip release_assets/web.zip
+
+          cp downloads/app.apk/*.apk release_assets/app.apk
+          cp downloads/app.deb/*.deb release_assets/app.deb
+          cp downloads/app.msi/*.msi release_assets/app.msi
+          cp downloads/app.dmg/*.dmg release_assets/app.dmg
+          cp downloads/web.zip/*.zip release_assets/web.zip
+
           echo "Contents of release_assets:"
           ls release_assets/
 
