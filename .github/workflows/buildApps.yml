@@ -23,7 +23,7 @@ jobs:
         run: |
           cd EltonKola_Web
           chmod +x gradlew  
-          ./gradlew shared:lint
+          ./gradlew :composeApp:lint
 
   build-android:
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
       - name: Build APK
         run: |
           cd EltonKola_Web
-          ./gradlew androidApp:assembleRelease
+          ./gradlew :composeApp:assembleRelease
 
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
@@ -91,7 +91,7 @@ jobs:
       - name: Build Deb
         run: |
           cd EltonKola_Web
-          ./gradlew desktopApp:packageDeb
+          ./gradlew :composeApp:packageDeb
 
       - name: Upload DEB
         uses: actions/upload-artifact@v3
@@ -151,7 +151,7 @@ jobs:
       - name: Build Msi
         run: |
           cd EltonKola_Web
-          ./gradlew desktopApp:packageMsi
+          ./gradlew :composeApp:packageMsi
 
       - name: Upload Msi
         uses: actions/upload-artifact@v3
@@ -178,7 +178,7 @@ jobs:
       - name: Build Dmg
         run: |
           cd EltonKola_Web
-          ./gradlew desktopApp:packageDmg
+          ./gradlew :composeApp:packageDmg
 
       - name: Upload Dmg
         uses: actions/upload-artifact@v3
@@ -232,7 +232,7 @@ jobs:
       - name: Build project (shared framework)
         run: |
           cd EltonKola_Web
-          ./gradlew shared:iosArm64Binaries
+          ./gradlew :composeApp:iosArm64Binaries
 
       - name: build archive
         run: |
