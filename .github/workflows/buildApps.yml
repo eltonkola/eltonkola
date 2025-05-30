@@ -44,6 +44,7 @@ jobs:
       - name: Build APK
         run: |
           cd EltonKola_Web
+          chmod +x gradlew  
           ./gradlew :composeApp:assembleRelease
 
       - name: Sign APK
@@ -91,6 +92,7 @@ jobs:
       - name: Build Deb
         run: |
           cd EltonKola_Web
+          chmod +x gradlew  
           ./gradlew :composeApp:packageDeb
 
       - name: Upload DEB
@@ -118,6 +120,7 @@ jobs:
       - name: Build Web App (WasmJs)
         run: |
           cd EltonKola_Web
+          chmod +x gradlew  
           ./gradlew :composeApp:wasmJsBrowserDistribution
           echo "Zipping web distribution..."
           ls -R composeApp/build/dist/wasmJs/productionExecutable/
@@ -151,6 +154,7 @@ jobs:
       - name: Build Msi
         run: |
           cd EltonKola_Web
+          chmod +x gradlew  
           ./gradlew :composeApp:packageMsi
 
       - name: Upload Msi
@@ -178,6 +182,7 @@ jobs:
       - name: Build Dmg
         run: |
           cd EltonKola_Web
+          chmod +x gradlew  
           ./gradlew :composeApp:packageDmg
 
       - name: Upload Dmg
@@ -232,6 +237,7 @@ jobs:
       - name: Build project (shared framework)
         run: |
           cd EltonKola_Web
+          chmod +x gradlew  
           ./gradlew :composeApp:iosArm64Binaries
 
       - name: build archive
