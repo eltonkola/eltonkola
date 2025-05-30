@@ -1,0 +1,86 @@
+name: Publish Release
+
+on:
+  workflow_call:
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts for release
+        uses: actions/download-artifact@v4
+        with:
+          path: downloads/
+
+      - name: List downloaded files for verification
+        run: |
+          ls -R downloads/
+          mkdir -p release_assets
+          cp downloads/app.apk/app.apk release_assets/app.apk
+          cp downloads/app.deb/app.deb release_assets/app.deb
+          cp downloads/app.msi/app.msi release_assets/app.msi
+          cp downloads/app.dmg/app.dmg release_assets/app.dmg
+          cp downloads/web.zip/web.zip release_assets/web.zip
+          echo "Contents of release_assets:"
+          ls release_assets/
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          release_name: Release v1.0.${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release APK
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release_assets/app.apk
+          asset_name: ek-${{ github.run_number }}.apk
+          asset_content_type: application/vnd.android.package-archive
+
+      - name: Upload Release Deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release_assets/app.deb
+          asset_name: ek-${{ github.run_number }}-amd64.deb
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: Upload Release Msi
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release_assets/app.msi
+          asset_name: ek-${{ github.run_number }}.msi
+          asset_content_type: application/x-msi
+
+      - name: Upload Release Dmg
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release_assets/app.dmg
+          asset_name: ek-${{ github.run_number }}.dmg
+          asset_content_type: application/x-apple-diskimage
+
+      - name: Upload Release Web (Zip)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release_assets/web.zip
+          asset_name: web-dist-${{ github.run_number }}.zip
+          asset_content_type: application/zip

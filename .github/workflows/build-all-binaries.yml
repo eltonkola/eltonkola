@@ -1,0 +1,44 @@
+name: Build And Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prepare-project:
+    uses: ./.github/workflows/prepare-project.yml
+
+  build-android:
+    needs: [prepare-project]
+    uses: ./.github/workflows/build-android.yml
+    secrets: inherit
+
+  build-linux:
+    needs: [prepare-project]
+    uses: ./.github/workflows/build-linux.yml
+
+  build-web:
+    needs: [prepare-project]
+    uses: ./.github/workflows/build-web.yml
+
+  build-windows:
+    needs: [prepare-project]
+    uses: ./.github/workflows/build-windows.yml
+
+  build-macos:
+    needs: [prepare-project]
+    uses: ./.github/workflows/build-macos.yml
+
+  build-ios:
+    needs: [prepare-project]
+    uses: ./.github/workflows/build-ios.yml
+    secrets: inherit
+
+  update-website:
+    needs: [build-web, build-android, build-linux, build-windows, build-macos]
+    uses: ./.github/workflows/update-website.yml
+    secrets: inherit
+
+  publish-release:
+    needs: [build-android, build-macos, build-windows, build-web, build-linux]
+    uses: ./.github/workflows/publish-release.yml
+    secrets: inherit

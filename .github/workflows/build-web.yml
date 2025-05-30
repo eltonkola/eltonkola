@@ -1,0 +1,36 @@
+name: Build Web
+
+on:
+  workflow_call:
+
+jobs:
+  build-web:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'temurin'
+
+      - name: Build Web App (WasmJs)
+        run: |
+          cd EltonKola_Web
+          chmod +x gradlew  
+          ./gradlew :composeApp:wasmJsBrowserDistribution
+          echo "Zipping web distribution..."
+          ls -R composeApp/build/dist/wasmJs/productionExecutable/
+          zip -jr ../../web_dist.zip composeApp/build/dist/wasmJs/productionExecutable/
+          mv ../../web_dist.zip ${{ github.workspace }}/web.zip
+
+      - name: Upload Web Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: web.zip
+          path: ${{ github.workspace }}/web.zip

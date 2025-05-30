@@ -1,0 +1,72 @@
+name: Update Website
+
+on:
+  workflow_call:
+
+jobs:
+  update-website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Prepare public directory structure
+        run: |
+          rm -rf public
+          mkdir -p public/downloads
+
+      - name: Download Web Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web.zip
+          path: public/downloads
+
+      - name: Download APK Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app.apk
+          path: public/downloads
+
+      - name: Download DEB Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app.deb
+          path: public/downloads
+
+      - name: Download MSI Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app.msi
+          path: public/downloads
+
+      - name: Download DMG Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app.dmg
+          path: public/downloads
+
+      - name: Extract web content and organize files
+        run: |
+          echo "Contents of public/downloads before unzip:"
+          ls -R public/downloads
+          unzip -o public/downloads/web.zip -d public/
+          echo "Contents of public/ after unzip:"
+          ls -R public/
+
+      - name: Create Pull Request for Website Update
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'update website content and binaries'
+          branch: website_update
+          delete-branch: true
+          title: '[publish] Update website and app binaries'
+          assignees: ${{ github.actor }}
+          base: main
+          body: |
+            Update website content and application binaries.
+            - Deployed new web build to `public/`
+            - Copied all built binaries to `public/downloads/`
+          labels: |
+            deployment
+            automated-pr
