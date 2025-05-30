@@ -26,5 +26,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app.msi
-          path: EltonKola_Web\desktopApp\build\compose\binaries\main\msi\*.msi
+          path: EltonKola_Web\composeApp\build\compose\binaries\main\msi\*.msi
           if-no-files-found: error

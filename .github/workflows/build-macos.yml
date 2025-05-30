@@ -26,5 +26,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app.dmg
-          path: EltonKola_Web/desktopApp/build/compose/binaries/main/dmg/*.dmg
+          path: EltonKola_Web/composeApp/build/compose/binaries/main/dmg/*.dmg
           if-no-files-found: error
