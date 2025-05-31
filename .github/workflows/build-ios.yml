@@ -46,6 +46,7 @@ jobs:
         run: |
           cd EltonKola_Web
           chmod +x gradlew
+          ./gradlew :composeApp:generateDummyFramework
           ./gradlew :composeApp:podspec
 
       - name: Install pods
