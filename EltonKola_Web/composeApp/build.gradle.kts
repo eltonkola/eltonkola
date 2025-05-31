@@ -1,5 +1,6 @@
 @file:OptIn(ExperimentalWasmDsl::class)
 
+import jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -12,6 +13,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    kotlin("native.cocoapods")
 }
 
 kotlin {
@@ -96,6 +98,20 @@ kotlin {
         iosMain.dependencies{
             implementation(libs.ktor.client.cio)
         }
+
+        cocoapods {
+            version = "1.0.0"
+            HtmlStyle.summary = "Some description for the Shared Module"
+            homepage = "Link to the Shared Module homepage"
+            ios.deploymentTarget = "15.3"
+            podfile = project.file("../iosApp/Podfile")
+            framework {
+                baseName = "shared"
+                isStatic = true
+            }
+            //   extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+        }
+
 
     }
 }
