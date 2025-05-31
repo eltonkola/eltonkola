@@ -13,6 +13,11 @@ jobs:
       - name: Prepare public directory structure
         run: |
           #rm -rf public
+          rm -f public/downloads/*.apk
+          rm -f public/downloads/*.deb
+          rm -f public/downloads/*.msi
+          rm -f public/downloads/*.dmg
+          rm -f public/downloads/*.zip
           mkdir -p public/downloads
 
       - name: Download Web Artifact
