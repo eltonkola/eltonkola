@@ -86,7 +86,7 @@
 			name = iosApp;
 			packageProductDependencies = (
 			);
-			productName = EltonKola; // <<< CHANGED HERE
+			productName = EltonKola;
 			productReference = B9DA97B12DC1472C00A4DA20 /* EltonKola.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -313,7 +313,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eltonkola.yourkmpappname"; // <<< REPLACE THIS
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eltonkola.app";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -327,8 +327,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Distribution"; // <<< CHANGED HERE
-				CODE_SIGN_STYLE = Manual;            // <<< CHANGED HERE
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = "${TEAM_ID}"; // Ensure this is correctly populated or overridden by GHA
 				ENABLE_PREVIEWS = YES; // Consider setting to NO for Release builds
@@ -347,8 +347,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eltonkola.yourkmpappname"; // <<< REPLACE THIS
-				PROVISIONING_PROFILE_SPECIFIER = "Name Of Your AdHoc/AppStore Profile"; // <<< ADDED HERE - REPLACE THIS
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eltonkola.app";
+				PROVISIONING_PROFILE_SPECIFIER = "eltonkola";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
