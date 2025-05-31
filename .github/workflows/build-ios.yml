@@ -45,6 +45,7 @@ jobs:
       - name: Build composeApp framework and generate podspec
         run: |
           cd EltonKola_Web
+          chmod +x gradlew
           ./gradlew :composeApp:podspec
 
       - name: Install pods
