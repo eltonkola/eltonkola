@@ -32,41 +32,19 @@ jobs:
         for XCODE_APP_PATH in /Applications/Xcode*.app; do
           if [ -d "$XCODE_APP_PATH" ]; then
             echo "Found: $XCODE_APP_PATH"
-            $XCODE_APP_PATH/Contents/Developer/usr/bin/xcodebuild -version
+            # Optionally, print version of each, but can be slow
+            # $XCODE_APP_PATH/Contents/Developer/usr/bin/xcodebuild -version
           fi
         done
         echo "----------------------------------------"
 
-        # --- YOU NEED TO DECIDE THE DESIRED_XCODE_PATH BASED ON THE OUTPUT ABOVE ---
-        # --- AND THE XCODE VERSION YOU USED TO SAVE YOUR PROJECT LOCALLY ---
-        # Example: If the output shows /Applications/Xcode_16.0.app and you need Xcode 16:
-        # DESIRED_XCODE_PATH="/Applications/Xcode_16.0.app"
-        # Example: If the output shows /Applications/Xcode_15.3.app (but remember 15.4 is already failing you)
-        
-        DESIRED_XCODE_PATH="" # Initialize
+        # --- MANUALLY SET THE DESIRED XCODE PATH ---
+        # Based on available versions and your project's needs.
+        # Your project format (77) indicates an Xcode 16.x version.
+        # Let's target the newest available Xcode 16 on the runner.
+        DESIRED_XCODE_PATH="/Applications/Xcode_16.2.app"
 
-        # --- START OF AUTO-SELECTION LOGIC (Attempt to find the newest available) ---
-        # This is a simple attempt. Manually setting DESIRED_XCODE_PATH above is more reliable if you know what you need.
-        LATEST_FOUND_XCODE=""
-        if [ -d "/Applications/Xcode_16.0.app" ]; then # Prioritize Xcode 16 if available
-            LATEST_FOUND_XCODE="/Applications/Xcode_16.0.app"
-        elif [ -d "/Applications/Xcode_15.4.app" ]; then # Then 15.4 (which is current default and failing)
-            LATEST_FOUND_XCODE="/Applications/Xcode_15.4.app" # Unlikely to fix, but for completeness
-        elif [ -d "/Applications/Xcode_15.3.app" ]; then # Then 15.3
-            LATEST_FOUND_XCODE="/Applications/Xcode_15.3.app" # Unlikely to fix
-        # Add more versions here if needed, from newest to oldest
-        fi
-        
-        # If you manually set DESIRED_XCODE_PATH, it will override the auto-selection
-        if [ -z "$DESIRED_XCODE_PATH" ] && [ -n "$LATEST_FOUND_XCODE" ]; then
-            echo "Auto-selecting: $LATEST_FOUND_XCODE (based on availability)"
-            DESIRED_XCODE_PATH="$LATEST_FOUND_XCODE"
-        elif [ -z "$DESIRED_XCODE_PATH" ]; then
-            echo "No specific newer Xcode path found or manually set. Will use system default."
-            # No need to run xcode-select if we're sticking with default
-            exit 0 # Exit this step successfully, let the next step show default version
-        fi
-        # --- END OF AUTO-SELECTION LOGIC ---
+        echo "Attempting to select Xcode: $DESIRED_XCODE_PATH"
 
         if [ -n "$DESIRED_XCODE_PATH" ] && [ -d "$DESIRED_XCODE_PATH" ]; then
           CURRENT_XCODE_DEFAULT_PATH=$(xcode-select -p)
@@ -78,9 +56,11 @@ jobs:
             echo "Desired Xcode ($DESIRED_XCODE_PATH) is already the default. No change needed."
           fi
         else
-          echo "WARNING: DESIRED_XCODE_PATH ('$DESIRED_XCODE_PATH') not found or not a directory. Using system default."
+          echo "ERROR: Manually specified DESIRED_XCODE_PATH ('$DESIRED_XCODE_PATH') not found or not a directory."
+          echo "Please check the available Xcodes listed above and correct the path."
+          exit 1
         fi
-      
+        
     - name: Check Xcode version (after select)
       run: xcodebuild -version
     
