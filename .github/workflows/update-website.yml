@@ -12,7 +12,7 @@ jobs:
 
       - name: Prepare public directory structure
         run: |
-          rm -rf public
+          #rm -rf public
           mkdir -p public/downloads
 
       - name: Download Web Artifact
@@ -26,24 +26,42 @@ jobs:
         with:
           name: app.apk
           path: public/downloads
+      - name: Rename downloaded APK
+        run: |
+          mv public/downloads/*.apk public/downloads/app.apk
+        shell: bash 
 
       - name: Download DEB Artifact
         uses: actions/download-artifact@v4
         with:
           name: app.deb
           path: public/downloads
+      - name: Rename downloaded Deb
+        run: |
+          mv public/downloads/*.deb public/downloads/app.deb
+        shell: bash 
 
+        
       - name: Download MSI Artifact
         uses: actions/download-artifact@v4
         with:
           name: app.msi
           path: public/downloads
+      - name: Rename downloaded Msi
+        run: |
+          mv public/downloads/*.msi public/downloads/app.msi
+        shell: bash 
 
       - name: Download DMG Artifact
         uses: actions/download-artifact@v4
         with:
           name: app.dmg
           path: public/downloads
+      - name: Rename downloaded Dmg
+        run: |
+          mv public/downloads/*.dmg public/downloads/app.dmg
+        shell: bash 
+
 
       - name: Extract web content and organize files
         run: |
