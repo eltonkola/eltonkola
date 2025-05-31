@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '15.3'
+platform :ios, '15.4'
 
 target 'iosApp' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -16,7 +16,7 @@ post_install do |installer|
     puts "✅ Patching deployment target for: #{target.name}"
 
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.3'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.4'
     end
   end
 end
