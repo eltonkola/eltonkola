@@ -86,7 +86,7 @@
 			name = iosApp;
 			packageProductDependencies = (
 			);
-			productName = iosApp;
+			productName = EltonKola; // <<< CHANGED HERE
 			productReference = B9DA97B12DC1472C00A4DA20 /* EltonKola.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -167,7 +167,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		B9DA97BD2DC1472D00A4DA20 /* Debug */ = {
+		B9DA97BD2DC1472D00A4DA20 /* Debug */ = { // This is for the PROJECT, not the TARGET
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -230,7 +230,7 @@
 			};
 			name = Debug;
 		};
-		B9DA97BE2DC1472D00A4DA20 /* Release */ = {
+		B9DA97BE2DC1472D00A4DA20 /* Release */ = { // This is for the PROJECT, not the TARGET
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -286,7 +286,7 @@
 			};
 			name = Release;
 		};
-		B9DA97C02DC1472D00A4DA20 /* Debug */ = {
+		B9DA97C02DC1472D00A4DA20 /* Debug */ = { // THIS IS THE TARGET's Debug configuration
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = B9DA98002DC14AA900A4DA20 /* Configuration */;
 			baseConfigurationReferenceRelativePath = Config.xcconfig;
@@ -294,7 +294,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Automatic; // Or Manual, GHA overrides for archive
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = "${TEAM_ID}";
 				ENABLE_PREVIEWS = YES;
@@ -313,25 +313,25 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eltonkola.app";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eltonkola.yourkmpappname"; // <<< REPLACE THIS
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		B9DA97C12DC1472D00A4DA20 /* Release */ = {
+		B9DA97C12DC1472D00A4DA20 /* Release */ = { // THIS IS THE TARGET's Release configuration
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = B9DA98002DC14AA900A4DA20 /* Configuration */;
 			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Distribution"; // <<< CHANGED HERE
+				CODE_SIGN_STYLE = Manual;            // <<< CHANGED HERE
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
-				ENABLE_PREVIEWS = YES;
+				DEVELOPMENT_TEAM = "${TEAM_ID}"; // Ensure this is correctly populated or overridden by GHA
+				ENABLE_PREVIEWS = YES; // Consider setting to NO for Release builds
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)\n$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
@@ -347,7 +347,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eltonkola.app";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eltonkola.yourkmpappname"; // <<< REPLACE THIS
+				PROVISIONING_PROFILE_SPECIFIER = "Name Of Your AdHoc/AppStore Profile"; // <<< ADDED HERE - REPLACE THIS
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
