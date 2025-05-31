@@ -158,10 +158,31 @@ jobs:
       env:
         PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
       run: |
-        # ... (decoding and UUID extraction) ...
+        PROFILE_PATH_TEMP="profile.mobileprovision"
+        echo "${PROFILE_BASE64}" | base64 --decode > "${PROFILE_PATH_TEMP}"
+        
+        # Check if profile is empty or invalid
+        if [ ! -s "${PROFILE_PATH_TEMP}" ]; then
+          echo "Error: Decoded provisioning profile is empty. Check BUILD_PROVISION_PROFILE_BASE64 secret."
+          exit 1
+        fi
+        
+        # Attempt to extract UUID
+        # Use plutil for more robust parsing if available and security cms for decoding
+        # Note: security cms -D -i on macOS runners is standard
+        PROFILE_UUID=$(security cms -D -i "${PROFILE_PATH_TEMP}" | /usr/libexec/PlistBuddy -c 'Print UUID' /dev/stdin 2>/dev/null || echo "ERROR_EXTRACTING_UUID")
+
+        if [ "$PROFILE_UUID" == "ERROR_EXTRACTING_UUID" ] || [ -z "$PROFILE_UUID" ]; then
+            echo "Error: Could not extract UUID from provisioning profile."
+            echo "Please ensure BUILD_PROVISION_PROFILE_BASE64 secret contains a valid base64 encoded .mobileprovision file."
+            echo "Attempting to print decoded profile content for debugging (may be binary):"
+            security cms -D -i "${PROFILE_PATH_TEMP}" || echo "Failed to print decoded profile."
+            exit 1
+        fi
+        
         TARGET_PROFILE_PATH="$HOME/Library/MobileDevice/Provisioning Profiles/${PROFILE_UUID}.mobileprovision"
         mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
-        mv "${PROFILE_PATH_TEMP}" "${TARGET_PROFILE_PATH}"
+        mv "${PROFILE_PATH_TEMP}" "${TARGET_PROFILE_PATH}" # This is where it fails
         echo "Installed provisioning profile with UUID: ${PROFILE_UUID} to ${TARGET_PROFILE_PATH}"
         
     - name: Archive iOS App (Xcode)
