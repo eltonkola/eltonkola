@@ -20,7 +20,50 @@ jobs:
   build-ipa:
     runs-on: macos-latest # Essential for iOS builds
 
+
     steps:
+    
+    - name: Select Newer Xcode Version
+      run: |
+        # List available Xcode versions to see what's on the runner
+        # ls /Applications/ | grep Xcode 
+        # Example: If you need Xcode 16 (beta as of now)
+        # sudo xcode-select -s /Applications/Xcode_16.0.app/Contents/Developer
+        # Example: If you need a newer Xcode 15.x like 15.x (if available and higher than 15.4)
+        # sudo xcode-select -s /Applications/Xcode_15.X.app/Contents/Developer 
+        # --- CHOOSE THE APPROPRIATE ONE ---
+        # For now, let's assume you opened it with Xcode 16
+        # If Xcode 16 beta is available on the runner (check runner image specs)
+        # If not, you might need to use a runner image that has it or wait for official support.
+        # As of late May 2024, Xcode 16 is typically beta. `macos-latest` might not have beta Xcodes by default.
+        # You might need to use `macos-14` which is more likely to have newer Xcodes.
+        # For now, let's try to target a specific generally available newer version if possible.
+        # If your project format (77) came from Xcode 15.3 or 15.4, this might not be the issue.
+        # If it came from an Xcode 16 beta, this is definitely the issue.
+        # Let's assume you need Xcode 16 beta (if that's what you used locally)
+        # Check if Xcode 16 is available:
+        if [ -d "/Applications/Xcode_16.0.app" ]; then
+          echo "Selecting Xcode 16.0"
+          sudo xcode-select -s /Applications/Xcode_16.0.app/Contents/Developer
+        elif [ -d "/Applications/Xcode_15.3.app" ] && [ "15.4" = "$(xcodebuild -version | grep Xcode | awk '{print $2}')" ]; then
+          # This logic is a bit flawed, we should check if 15.4 is *older* than what's needed.
+          # For now, the error message suggests 15.4 is too old.
+          echo "Xcode 15.4 is running. The project requires a newer format."
+          echo "Try to find a newer installed Xcode or update the runner image if possible."
+          # If you know Xcode 15.3 created format 77, you might try selecting that,
+          # but the error indicates the *current* Xcode (15.4) is too old.
+          # This means format 77 is LIKELY from something newer than 15.4.
+        else
+          echo "Desired newer Xcode not found. Current version is:"
+          xcodebuild -version
+          echo "Available Xcodes:"
+          ls /Applications/ | grep Xcode
+          exit 1 # Fail the build as we can't select the right Xcode
+        fi
+    - name: Check Xcode version (after select)
+      run: xcodebuild -version
+    
+    
     - name: Checkout repository
       uses: actions/checkout@v4
 
