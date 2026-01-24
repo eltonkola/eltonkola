@@ -4,8 +4,8 @@
 - ⚡ Fun fact: i love what i do
 
 ### About me
-- 14+ years on Android, publishing and contributing to several apps used by millions. 
-- 24+ years working in  software engineering, with a strong foundation in backend, frontend, and full-stack systems.
+- 16+ years on Android, publishing and contributing to several apps used by millions. 
+- 25+ years working in  software engineering, with a strong foundation in backend, frontend, and full-stack systems.
 - Team player, worked with several teams of different sizes and backgrounds.
 - Created several apps from scratch to production.
 - Looking for new challenges to get things to the next level. 
